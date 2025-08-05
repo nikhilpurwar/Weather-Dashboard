@@ -1,4 +1,4 @@
-import { WeatherDataPoint, DataSource } from '../types';
+import type { WeatherDataPoint, DataSource } from '../types';
 
 // Cache for API responses
 const weatherCache = new Map<string, { data: WeatherDataPoint[]; expires: number }>();

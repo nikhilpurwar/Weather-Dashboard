@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { fetchPolygonWeatherData, PolygonWeatherData } from '../api/weatherApi';
-import { ColorRule } from '../types';
+import { fetchPolygonWeatherData, type PolygonWeatherData } from '../api/weatherApi';
+import type { ColorRule } from '../types';
 
 export const useWeatherIntegration = () => {
   const { state } = useAppContext();

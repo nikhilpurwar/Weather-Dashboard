@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { fetchWeatherData } from '../api/weatherApi';
+import { fetchWeatherData, type WeatherData } from '../api/weatherApi';
 
 export const useWeatherData = (lat: number, lon: number, startTime?: string, endTime?: string) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

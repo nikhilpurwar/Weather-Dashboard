@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Range, getTrackBackground } from 'react-range';
 import { useAppContext } from '../../context/AppContext';
 import dayjs from 'dayjs';

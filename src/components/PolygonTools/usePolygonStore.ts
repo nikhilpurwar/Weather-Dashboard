@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { PolygonData } from '../../types';
+import type { PolygonData } from '../../types';
 
 export const usePolygonStore = () => {
   const [polygons, setPolygons] = useState<PolygonData[]>([]);
