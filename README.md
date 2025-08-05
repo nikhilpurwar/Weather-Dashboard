@@ -13,13 +13,13 @@ A modern, interactive weather visualization dashboard built with React, TypeScri
 ### Desktop View
 The main dashboard showing the interactive map, sidebar controls, timeline slider, and compact legend.
 
-![Desktop Dashboard](image-1.png)
+![Desktop Dashboard](./screenshots/image-1.png)
 
 *Features: Interactive map with polygon drawing, comprehensive sidebar with data source selection, timeline control, and responsive legend*
 
 ### Mobile Responsive Design
 Optimized mobile experience with collapsible sidebar and touch-friendly controls.
-![Mobile View](image-2.png)
+![Mobile View](./screenshots/image-2.png)
 
 *Features: Collapsible sidebar overlay, compact timeline, touch-optimized drawing tools*
 
