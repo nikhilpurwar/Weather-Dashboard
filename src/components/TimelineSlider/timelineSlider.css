@@ -1,0 +1,36 @@
+.slider-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.slider-track {
+  height: 8px;
+  border-radius: 4px;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.slider-thumb {
+  height: 24px;
+  width: 24px;
+  background-color: orange;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  cursor: grab;
+  position: relative;
+}
+
+.thumb-label {
+  position: absolute;
+  top: -30px;
+  background: #fff2cc;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #333;
+}

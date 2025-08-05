@@ -1,0 +1,311 @@
+/* Enhanced animations and mobile styles */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    filter: hue-rotate(270deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Utility animation classes */
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.animate-color-shift {
+  animation: color-shift 10s ease-in-out infinite;
+}
+
+/* Timeline slider enhancements */
+.timeline-track {
+  position: relative;
+  user-select: none;
+}
+
+.timeline-thumb {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.timeline-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.timeline-thumb:active {
+  transform: scale(0.95);
+  cursor: grabbing;
+}
+
+/* Enhanced tooltips */
+.tooltip {
+  @apply absolute z-50 px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap;
+  animation: fade-in 0.2s ease-out;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #1f2937;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .timeline-thumb {
+    height: 24px !important;
+    width: 24px !important;
+  }
+  
+  .timeline-track {
+    height: 8px !important;
+  }
+}
+
+/* Polygon animations for map */
+.polygon-animated {
+  transition: all 0.3s ease;
+}
+
+.polygon-animated:hover {
+  filter: brightness(1.1);
+  stroke-width: 3;
+}
+
+/* Enhanced button styles */
+.btn-enhanced {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  @apply hover:shadow-md active:transform active:scale-95;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+/* Loading animations */
+.spinner {
+  @apply inline-block w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced card styles */
+.card-enhanced {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200;
+  @apply hover:shadow-md transition-all duration-200;
+}
+
+.card-enhanced:hover {
+  transform: translateY(-1px);
+}
+
+/* Color picker enhancements */
+.color-picker-swatch {
+  @apply w-8 h-8 rounded-full border-2 border-white shadow-md cursor-pointer;
+  @apply hover:scale-110 transition-transform duration-150;
+}
+
+.color-picker-swatch:active {
+  transform: scale(0.95);
+}
+
+/* Map control enhancements */
+.map-control {
+  @apply bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg shadow-md;
+  @apply hover:bg-white transition-all duration-200;
+}
+
+.map-control:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Data source indicators */
+.data-source-live {
+  @apply relative;
+}
+
+.data-source-live::after {
+  content: '';
+  @apply absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full;
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.data-source-mock {
+  @apply relative;
+}
+
+.data-source-mock::after {
+  content: '';
+  @apply absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full;
+}
+
+/* Enhanced scroll bars */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Focus improvements for accessibility */
+.focus-enhanced:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Mobile menu animations */
+@media (max-width: 768px) {
+  .mobile-menu-enter {
+    transform: translateX(-100%);
+  }
+  
+  .mobile-menu-enter-active {
+    transform: translateX(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .mobile-menu-exit {
+    transform: translateX(0);
+  }
+  
+  .mobile-menu-exit-active {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in;
+  }
+}
+
+/* Weather data visualization */
+.weather-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.temperature-hot {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+}
+
+.temperature-cold {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.temperature-mild {
+  background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-friendly {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}

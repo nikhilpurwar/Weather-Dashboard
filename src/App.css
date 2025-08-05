@@ -1,0 +1,57 @@
+/* Weather Dashboard Styles */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dashboard-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Legend Compact Styles */
+.legend-compact {
+  max-height: 120px;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.legend-expanded {
+  max-height: 300px;
+}
+
+/* Ensure main content doesn't get squished by legend */
+.main-content-with-legend {
+  min-height: 0;
+  flex: 1;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
