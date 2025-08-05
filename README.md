@@ -8,6 +8,12 @@ A modern, interactive weather visualization dashboard built with React, TypeScri
 ![Leaflet](https://img.shields.io/badge/Leaflet-1.9+-199900?style=for-the-badge&logo=leaflet&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5+-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
+## 🌐 Live Demo
+
+🚀 **[View Live Demo](https://weather-dashboard-nikhilpurwar.vercel.app)** - Try it now!
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nikhilpurwar/Weather-Dashboard)
+
 ## 📸 Screenshots
 
 ### Desktop View
@@ -67,6 +73,74 @@ npm run preview
 
 # Deploy the 'dist' folder to your hosting service
 ```
+
+## 🚀 Deploy to Vercel
+
+### Quick Deploy (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nikhilpurwar/Weather-Dashboard)
+
+### Manual Deployment Steps
+
+1. **Install Vercel CLI**
+```bash
+npm install -g vercel
+```
+
+2. **Login to Vercel**
+```bash
+vercel login
+```
+
+3. **Deploy from project directory**
+```bash
+# First deployment
+vercel
+
+# Follow the prompts:
+# ? Set up and deploy "~/weather-dashboard"? [Y/n] Y
+# ? Which scope do you want to deploy to? [Your username]
+# ? Link to existing project? [y/N] N
+# ? What's your project's name? weather-dashboard
+# ? In which directory is your code located? ./
+
+# Subsequent deployments
+vercel --prod
+```
+
+### Deploy via GitHub Integration
+
+1. **Push your code to GitHub** (already done!)
+2. **Visit [Vercel Dashboard](https://vercel.com/dashboard)**
+3. **Click "New Project"**
+4. **Import your GitHub repository**: `nikhilpurwar/Weather-Dashboard`
+5. **Configure project settings**:
+   - Framework Preset: `Vite`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+6. **Click "Deploy"**
+
+### Environment Variables (Optional)
+
+If you want to customize the API or enable debug mode in production:
+
+1. Go to your Vercel project dashboard
+2. Navigate to **Settings** → **Environment Variables**
+3. Add the following variables:
+
+| Name | Value | Environment |
+|------|-------|-------------|
+| `VITE_WEATHER_API_BASE_URL` | `https://api.open-meteo.com/v1/forecast` | Production |
+| `VITE_DEBUG` | `false` | Production |
+
+### Post-Deployment
+
+After successful deployment, your app will be available at:
+- **Production URL**: `https://weather-dashboard-[hash].vercel.app`
+- **Custom Domain**: Configure in Vercel dashboard (optional)
+
+Your app will automatically redeploy when you push changes to the main branch!
 
 ### Development Commands
 
