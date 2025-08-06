@@ -51,33 +51,41 @@ const TimelineSlider = () => {
           min={MIN}
           max={MAX}
           onChange={handleChange}
-          renderTrack={({ props, children }) => (
-            <div
-              {...props}
-              className="h-3 w-full rounded-lg"
-              style={{
-                background: getTrackBackground({
-                  values,
-                  colors: ['#e5e7eb', '#3b82f6', '#e5e7eb'],
-                  min: MIN,
-                  max: MAX,
-                }),
-              }}
-            >
-              {children}
-            </div>
-          )}
-          renderThumb={({ props, index }) => (
-            <div
-              {...props}
-              className="w-5 h-5 bg-blue-600 rounded-full shadow-lg border-2 border-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              style={{ ...props.style }}
-            >
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-                {startDate.add(values[index], 'hour').format('MMM D, HH:mm')}
+          renderTrack={({ props, children }) => {
+            const { key, ...trackProps } = props as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+            return (
+              <div
+                key={key}
+                {...trackProps}
+                className="h-3 w-full rounded-lg"
+                style={{
+                  background: getTrackBackground({
+                    values,
+                    colors: ['#e5e7eb', '#3b82f6', '#e5e7eb'],
+                    min: MIN,
+                    max: MAX,
+                  }),
+                }}
+              >
+                {children}
               </div>
-            </div>
-          )}
+            );
+          }}
+          renderThumb={({ props, index }) => {
+            const { key, ...thumbProps } = props;
+            return (
+              <div
+                key={key}
+                {...thumbProps}
+                className="w-5 h-5 bg-blue-600 rounded-full shadow-lg border-2 border-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                style={{ ...thumbProps.style }}
+              >
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                  {startDate.add(values[index], 'hour').format('MMM D, HH:mm')}
+                </div>
+              </div>
+            );
+          }}
         />
       </div>
       <div className="flex justify-between text-xs text-gray-500 mt-1 px-2">

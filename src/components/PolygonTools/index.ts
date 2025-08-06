@@ -1,1 +1,1 @@
-export { default } from './PolygonTools';
+export { default } from './WorkingPolygonTools';

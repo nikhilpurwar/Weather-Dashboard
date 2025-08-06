@@ -41,7 +41,8 @@ export const fetchWeatherData = async (
   const start = startDate || dayjs().subtract(15, 'day').format('YYYY-MM-DD');
   const end = endDate || dayjs().add(15, 'day').format('YYYY-MM-DD');
   
-  const url = `https://archive-api.open-meteo.com/v1/archive`;
+  // Use current forecast API for real-time data
+  const url = `https://api.open-meteo.com/v1/forecast`;
   
   try {
     const response = await axios.get(url, {
@@ -57,21 +58,28 @@ export const fetchWeatherData = async (
           'surface_pressure'
         ].join(','),
         timezone: 'auto'
-      }
+      },
+      timeout: 10000
     });
 
+    console.log('Weather API Response:', response.data);
+
     // Map the API response to our interface
-    return {
+    const weatherData = {
       hourly: {
-        time: response.data.hourly.time || [],
-        temperature_2m: response.data.hourly.temperature_2m || [],
-        humidity: response.data.hourly.relative_humidity_2m || [],
-        wind_speed_10m: response.data.hourly.wind_speed_10m || [],
-        surface_pressure: response.data.hourly.surface_pressure || [],
+        time: response.data.hourly?.time || [],
+        temperature_2m: response.data.hourly?.temperature_2m || [],
+        humidity: response.data.hourly?.relative_humidity_2m || [],
+        wind_speed_10m: response.data.hourly?.wind_speed_10m || [],
+        surface_pressure: response.data.hourly?.surface_pressure || [],
       }
     };
+
+    console.log('Mapped weather data:', weatherData);
+    return weatherData;
   } catch (error) {
     console.error('Failed to fetch weather data:', error);
+    console.log('Falling back to mock data for lat:', lat, 'lon:', lon);
     // Return mock data for development
     return generateMockWeatherData(start, end);
   }
@@ -87,6 +95,8 @@ export const fetchPolygonWeatherData = async (
 ): Promise<PolygonWeatherData> => {
   const [centerLat, centerLon] = getPolygonCentroid(coordinates);
   
+  console.log(`Fetching weather for polygon ${polygonId} at [${centerLat}, ${centerLon}]`);
+  
   const startDate = startTime ? dayjs(startTime).format('YYYY-MM-DD') : undefined;
   const endDate = endTime ? dayjs(endTime).format('YYYY-MM-DD') : undefined;
   
@@ -94,29 +104,45 @@ export const fetchPolygonWeatherData = async (
   
   // Calculate average value for the time range
   let averageValue = 0;
-  if (startTime && endTime) {
-    const startHour = dayjs(startTime).hour();
-    const endHour = dayjs(endTime).hour();
-    const startIndex = data.hourly.time.findIndex(time => 
-      dayjs(time).isSame(dayjs(startTime), 'day') && dayjs(time).hour() >= startHour
-    );
-    const endIndex = data.hourly.time.findIndex(time => 
-      dayjs(time).isSame(dayjs(endTime), 'day') && dayjs(time).hour() <= endHour
-    );
-    
-    if (startIndex >= 0 && endIndex >= 0) {
-      const values = getDataSourceValues(data, dataSource).slice(startIndex, endIndex + 1);
-      averageValue = values.reduce((sum, val) => sum + (val || 0), 0) / values.length;
-    }
-  } else {
-    // Use current hour value
-    const currentHourIndex = data.hourly.time.findIndex(time => 
-      dayjs(time).isSame(dayjs(), 'hour')
-    );
-    if (currentHourIndex >= 0) {
+  
+  try {
+    if (startTime && endTime) {
+      // Find data points within the time range
+      const startTimestamp = dayjs(startTime);
+      const endTimestamp = dayjs(endTime);
+      
       const values = getDataSourceValues(data, dataSource);
-      averageValue = values[currentHourIndex] || 0;
+      const filteredValues: number[] = [];
+      
+      data.hourly.time.forEach((timeStr, index) => {
+        const timestamp = dayjs(timeStr);
+        if (timestamp.isAfter(startTimestamp) && timestamp.isBefore(endTimestamp) || 
+            timestamp.isSame(startTimestamp) || timestamp.isSame(endTimestamp)) {
+          const value = values[index];
+          if (typeof value === 'number' && !isNaN(value)) {
+            filteredValues.push(value);
+          }
+        }
+      });
+      
+      if (filteredValues.length > 0) {
+        averageValue = filteredValues.reduce((sum, val) => sum + val, 0) / filteredValues.length;
+      } else {
+        // Fallback to first valid value
+        const firstValid = getDataSourceValues(data, dataSource).find(val => typeof val === 'number' && !isNaN(val));
+        averageValue = firstValid || 0;
+      }
+    } else {
+      // Use most recent or first valid value
+      const values = getDataSourceValues(data, dataSource);
+      const validValues = values.filter(val => typeof val === 'number' && !isNaN(val));
+      averageValue = validValues.length > 0 ? validValues[validValues.length - 1] : 0;
     }
+    
+    console.log(`Polygon ${polygonId} - Data source: ${dataSource}, Average value: ${averageValue}`);
+  } catch (error) {
+    console.error('Error calculating average value:', error);
+    averageValue = 0;
   }
   
   return {
@@ -124,7 +150,7 @@ export const fetchPolygonWeatherData = async (
     centerLat,
     centerLon,
     data,
-    averageValue,
+    averageValue: Number(averageValue.toFixed(1)), // Round to 1 decimal place
     dataSource
   };
 };
@@ -132,14 +158,25 @@ export const fetchPolygonWeatherData = async (
 // Get values for a specific data source
 const getDataSourceValues = (data: WeatherData, dataSource: string): number[] => {
   switch (dataSource) {
+    case 'open-meteo':
     case 'temperature_2m':
+    case 'temperature':
       return data.hourly.temperature_2m;
     case 'humidity':
+    case 'relative_humidity_2m':
       return data.hourly.humidity;
     case 'wind_speed':
+    case 'wind_speed_10m':
       return data.hourly.wind_speed_10m;
     case 'pressure':
+    case 'surface_pressure':
       return data.hourly.surface_pressure;
+    case 'mock-tropical':
+      // Generate tropical weather simulation
+      return data.hourly.temperature_2m.map(() => Math.random() * 15 + 25); // 25-40°C
+    case 'mock-temperate':
+      // Generate temperate weather simulation  
+      return data.hourly.temperature_2m.map(() => Math.random() * 25 + 5); // 5-30°C
     default:
       return data.hourly.temperature_2m;
   }

@@ -44,6 +44,7 @@ export interface AppState {
   };
   dataSources: DataSource[];
   selectedDataSource: string;
+  selectedParameter: string; // Add this for tracking which parameter to use for coloring
   focusedPolygonId: string | null;
   weatherCache: {
     [key: string]: {
@@ -63,6 +64,7 @@ export type Action =
   | { type: 'SET_TIME'; payload: TimeRange }
   | { type: 'SET_COLOR_RULES'; payload: { [dataSource: string]: ColorRule[] } }
   | { type: 'SET_DATA_SOURCE'; payload: string }
+  | { type: 'SET_PARAMETER'; payload: string }
   | { type: 'ADD_DATA_SOURCE'; payload: DataSource }
   | { type: 'SET_WEATHER_DATA'; payload: { polygonId: string; data: WeatherDataPoint[] } }
   | { type: 'SET_CACHE'; payload: { key: string; data: WeatherDataPoint[]; ttl: number } }

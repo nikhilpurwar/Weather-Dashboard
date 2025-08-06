@@ -53,6 +53,7 @@ const initialState: AppState = {
   },
   dataSources: defaultDataSources,
   selectedDataSource: 'open-meteo',
+  selectedParameter: 'temperature', // Default parameter for coloring
   focusedPolygonId: null,
   weatherCache: {},
   animationsEnabled: true
@@ -133,6 +134,9 @@ function appReducer(state: AppState, action: Action): AppState {
       break;
     case 'SET_DATA_SOURCE':
       newState = { ...state, selectedDataSource: action.payload };
+      break;
+    case 'SET_PARAMETER':
+      newState = { ...state, selectedParameter: action.payload };
       break;
     case 'ADD_DATA_SOURCE':
       newState = { 

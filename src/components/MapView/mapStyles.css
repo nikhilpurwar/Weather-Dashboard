@@ -24,20 +24,139 @@
   flex-direction: column;
 }
 
+/* Leaflet Draw Controls Styling */
+.leaflet-draw-toolbar {
+  z-index: 1000 !important;
+}
+
+/* Ensure draw controls appear in the right position */
+.leaflet-top.leaflet-right .leaflet-draw {
+  position: relative !important;
+  margin-top: 0 !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+/* Stack controls vertically on the right */
+.leaflet-top.leaflet-right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 10px !important;
+}
+
+/* Ensure zoom controls come first */
+.leaflet-control-zoom {
+  order: 1 !important;
+}
+
+/* Draw controls come after zoom */
+.leaflet-draw {
+  order: 2 !important;
+}
+
+.leaflet-draw-toolbar a {
+  background-color: white !important;
+  color: #333 !important;
+  border: 2px solid #ccc !important;
+  width: 30px !important;
+  height: 30px !important;
+  line-height: 26px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  display: block !important;
+  margin-bottom: 5px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  position: relative !important;
+}
+
+.leaflet-draw-toolbar a:hover {
+  background-color: #f8f9fa !important;
+  border-color: #97009c !important;
+  transform: scale(1.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Polygon drawing button */
+.leaflet-draw-toolbar a.leaflet-draw-draw-polygon {
+  background-image: none !important;
+}
+
+.leaflet-draw-toolbar a.leaflet-draw-draw-polygon:before {
+  content: "⬟" !important;
+  font-size: 18px !important;
+  color: #333 !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Rectangle drawing button */
+.leaflet-draw-toolbar a.leaflet-draw-draw-rectangle {
+  background-image: none !important;
+}
+
+.leaflet-draw-toolbar a.leaflet-draw-draw-rectangle:before {
+  content: "▭" !important;
+  font-size: 18px !important;
+  color: #333 !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Edit button */
+.leaflet-draw-toolbar a.leaflet-draw-edit-edit {
+  background-image: none !important;
+}
+
+.leaflet-draw-toolbar a.leaflet-draw-edit-edit:before {
+  content: "✏️" !important;
+  font-size: 14px !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Delete button */
+.leaflet-draw-toolbar a.leaflet-draw-edit-remove {
+  background-image: none !important;
+}
+
+.leaflet-draw-toolbar a.leaflet-draw-edit-remove:before {
+  content: "🗑️" !important;
+  font-size: 14px !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
 /* Polygon tooltip styling */
 .polygon-tooltip {
-  background-color: rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
   color: white !important;
   border: none !important;
-  border-radius: 4px !important;
-  padding: 6px 10px !important;
-  font-size: 12px !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  white-space: pre-line !important;
+  text-align: center !important;
+  max-width: 250px !important;
+  line-height: 1.4 !important;
 }
 
 .polygon-tooltip::before {
-  border-top-color: rgba(0, 0, 0, 0.8) !important;
+  border-top-color: rgba(0, 0, 0, 0.85) !important;
 }
 
 /* Enhanced polygon hover effects */

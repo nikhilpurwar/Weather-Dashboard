@@ -6,15 +6,15 @@ import type { ColorRule, PolygonData } from '../../types';
 
 const Sidebar = () => {
   const { state, dispatch } = useAppContext();
-  const [selectedSource, setSelectedSource] = useState('temperature_2m');
+  const [selectedSource, setSelectedSource] = useState(state.selectedParameter || 'temperature');
   const [editingPolygon, setEditingPolygon] = useState<string | null>(null);
   const [editingLabel, setEditingLabel] = useState('');
 
   const dataSources = [
-    { value: 'temperature_2m', label: 'Temperature (°C)', unit: '°C' },
+    { value: 'temperature', label: 'Temperature (°C)', unit: '°C' },
     { value: 'humidity', label: 'Humidity (%)', unit: '%' },
-    { value: 'wind_speed', label: 'Wind Speed (m/s)', unit: 'm/s' },
-    { value: 'pressure', label: 'Pressure (hPa)', unit: 'hPa' },
+    { value: 'windSpeed', label: 'Wind Speed (m/s)', unit: 'm/s' },
+    { value: 'precipitation', label: 'Precipitation (mm)', unit: 'mm' },
   ];
 
   const weatherDataSources = [
@@ -33,6 +33,11 @@ const Sidebar = () => {
         [selectedSource]: rules,
       },
     });
+  };
+
+  const handleParameterChange = (parameter: string) => {
+    setSelectedSource(parameter);
+    dispatch({ type: 'SET_PARAMETER', payload: parameter });
   };
 
   const deletePolygon = (id: string) => {
@@ -178,6 +183,28 @@ const Sidebar = () => {
             </button>
           )}
         </div>
+        
+        {/* Parameter Selection */}
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Parameter for Coloring
+          </label>
+          <select
+            value={selectedSource}
+            onChange={(e) => handleParameterChange(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            {dataSources.map((source) => (
+              <option key={source.value} value={source.value}>
+                {source.label}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-gray-500 mt-1">
+            Choose which parameter to use for polygon coloring
+          </p>
+        </div>
+        
         <ColorRuleEditor
           rules={state.colorRules[selectedSource] || []}
           onChange={handleRuleChange}
