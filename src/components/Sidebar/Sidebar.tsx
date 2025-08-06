@@ -93,7 +93,7 @@ const Sidebar = () => {
       <div className="p-4 border-b bg-gradient-to-r from-blue-50 to-indigo-50 flex-shrink-0">
         <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
           <span className="text-2xl">🌤️</span>
-          Dashboard Controls
+          Weather Dashboard
         </h2>
         <p className="text-sm text-gray-600 mt-1">
           Manage weather data visualization
@@ -149,7 +149,7 @@ const Sidebar = () => {
       </div>
 
       {/* Data Parameter Selection */}
-      <div className="p-4 border-b">
+      {/* <div className="p-4 border-b">
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Select Parameter
         </label>
@@ -167,7 +167,7 @@ const Sidebar = () => {
         <p className="text-xs text-gray-500 mt-1">
           Configure color rules for {dataSources.find(d => d.value === selectedSource)?.label}
         </p>
-      </div>
+      </div> */}
 
       {/* Color Rules */}
       <div className="p-4 border-b flex-1">

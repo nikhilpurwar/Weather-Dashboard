@@ -1,25 +1,25 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet-draw';
+import 'leaflet-draw/dist/leaflet.draw.css';
 import { v4 as uuidv4 } from 'uuid';
+import { useMap } from 'react-leaflet';
 import { useAppContext } from '../../context/AppContext';
 import { getLocationNameCached } from '../../utils/geocoding';
 
-interface PolygonToolsProps {
-  map: L.Map | null;
-}
-
-const PolygonTools: React.FC<PolygonToolsProps> = ({ map }) => {
+const PolygonTools: React.FC = () => {
+  const map = useMap();
   const { state, dispatch } = useAppContext();
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
 
   useEffect(() => {
-    if (!map) return;
-
+    console.log('PolygonTools useEffect running, map:', map);
+    
     // Create a feature group for drawn items
     const drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
     drawnItemsRef.current = drawnItems;
+    console.log('Created drawnItems:', drawnItems);
 
     // Create the draw control
     const drawControl = new L.Control.Draw({
@@ -62,7 +62,9 @@ const PolygonTools: React.FC<PolygonToolsProps> = ({ map }) => {
       },
     });
 
+    console.log('Created drawControl:', drawControl);
     map.addControl(drawControl);
+    console.log('Added drawControl to map');
 
     // Handle polygon creation
     const handleCreated = async (e: L.LeafletEvent) => {

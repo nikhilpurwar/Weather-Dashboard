@@ -81,7 +81,7 @@ const WorkingPolygonTools: React.FC = () => {
         };
 
         const drawControl = new L.Control.Draw({
-          position: 'topright', // This will be manually repositioned
+          position: 'topleft', // This will be manually repositioned
           draw: {
             polygon: {
               allowIntersection: false,
@@ -114,28 +114,28 @@ const WorkingPolygonTools: React.FC = () => {
         console.log('Adding draw control to map:', drawControl);
         map.addControl(drawControl);
         
-        // Force the control to appear on the right side below zoom controls
+        // Force the control to appear on the left side below zoom controls
         setTimeout(() => {
           const drawContainer = drawControl.getContainer();
           if (drawContainer) {
-            // Find the leaflet top-right container
-            const topRightContainer = map.getContainer().querySelector('.leaflet-top.leaflet-right');
-            if (topRightContainer) {
+            // Find the leaflet top-left container
+            const topLeftContainer = map.getContainer().querySelector('.leaflet-top.leaflet-left');
+            if (topLeftContainer) {
               // Remove from current position if already there
               if (drawContainer.parentElement) {
                 drawContainer.parentElement.removeChild(drawContainer);
               }
               
-              // Add to top-right container
-              topRightContainer.appendChild(drawContainer);
+              // Add to top-left container
+              topLeftContainer.appendChild(drawContainer);
               
               // Style the container to position it below zoom controls
-              drawContainer.style.marginTop = '90px'; // Space for zoom controls + padding
+              drawContainer.style.marginTop = '10px'; // Space for zoom controls + padding
               drawContainer.style.marginRight = '0px';
-              drawContainer.style.marginLeft = '0px';
+              drawContainer.style.marginLeft = '10px';
               drawContainer.style.position = 'relative';
               
-              console.log('Draw controls repositioned below zoom controls');
+              console.log('Draw controls repositioned below zoom controls on left side');
             }
           }
         }, 100);

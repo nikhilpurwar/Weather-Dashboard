@@ -29,6 +29,12 @@
   z-index: 1000 !important;
 }
 
+.leaflet-draw {
+  /* border: none !important; */
+  background: none !important;
+  box-shadow: none !important;
+}
+
 /* Ensure draw controls appear in the right position */
 .leaflet-top.leaflet-right .leaflet-draw {
   position: relative !important;
@@ -60,7 +66,7 @@
 .leaflet-draw-toolbar a {
   background-color: white !important;
   color: #333 !important;
-  border: 2px solid #ccc !important;
+  border: 2p solid black !important;
   width: 30px !important;
   height: 30px !important;
   line-height: 26px !important;
@@ -68,15 +74,15 @@
   font-size: 14px !important;
   text-decoration: none !important;
   display: block !important;
-  margin-bottom: 5px !important;
-  border-radius: 4px !important;
+  /* margin-bottom: 5px !important; */
+  /* border-radius: 4px !important; */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
   position: relative !important;
 }
 
 .leaflet-draw-toolbar a:hover {
   background-color: #f8f9fa !important;
-  border-color: #97009c !important;
+  border: none !important;
   transform: scale(1.05) !important;
   transition: all 0.2s ease !important;
 }
